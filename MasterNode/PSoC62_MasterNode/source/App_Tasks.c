@@ -19,7 +19,9 @@
 #include "task.h"
 
 #include "IoHwAbs_CapSense.h"
+#include "cybsp.h"
 #include "cyhal.h"
+#include "cycfg.h"
 
 
 
@@ -46,12 +48,21 @@ void High_Prio_Task(void* param)
 {
     TickType_t xLastWakeTime_High_Prio;
 
+    cyhal_pwm_t pwm_led;
+
     (void)param;
     
+    uint8_t brightness;
 
     /* Initialize The CapSense */
     IoHwAbs_CapSense_Tuner_Init();
     IoHwAbs_CapSense_Init();
+
+
+    /* Initialize a PWM resource for driving an LED. */
+    cyhal_pwm_init(&pwm_led, CYBSP_USER_LED, NULL);
+    cyhal_pwm_set_duty_cycle(&pwm_led, 0,1000000u);
+    cyhal_pwm_start(&pwm_led);
 
     // Initialise the xLastWakeTime variable with the current time.
     xLastWakeTime_High_Prio = xTaskGetTickCount ();
@@ -80,6 +91,13 @@ void High_Prio_Task(void* param)
         {
 
         }
+
+        if (IoHwAbs_CapSense_Get_Slider_State(&brightness))
+        {
+            cyhal_pwm_set_duty_cycle(&pwm_led,brightness ,1000000u);
+        }
+
+        
 
     }
 }

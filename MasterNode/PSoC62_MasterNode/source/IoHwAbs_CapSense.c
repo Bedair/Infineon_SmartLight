@@ -204,11 +204,27 @@ CapSense_Button_State IoHwAbs_CapSense_Get_Button1_State(void)
 
 /*
 * Funcation Name : IoHwAbs_CapSense_Get_Slider_State
-* Description    : Used to retuen the Silder value
-* Parameters     : NA
+* Description    : Used to retuen the if the Slider is presssed 
+*                  and position of the slider
+* Parameters     : Pointer to the touched slider position (0 : 100)
 * Return         : Current Slider value
 */
-uint8_t IoHwAbs_CapSense_Get_Slider_State(void)
-{
+CapSense_Button_State IoHwAbs_CapSense_Get_Slider_State(uint8_t *pos)
+{   
+    uint16_t slider_pos = 0;
+    uint8_t slider_touched = 0;
+    cy_stc_capsense_touch_t *slider_touch;
 
+
+    /* Get slider status */
+    slider_touch = Cy_CapSense_GetTouchInfo(
+        CY_CAPSENSE_LINEARSLIDER0_WDGT_ID,
+        &cy_capsense_context);
+
+
+    slider_pos = slider_touch->ptrPosition->x;
+    slider_touched = slider_touch->numPosition;
+
+    *pos = (slider_pos * 100) / cy_capsense_context.ptrWdConfig[CY_CAPSENSE_LINEARSLIDER0_WDGT_ID].xResolution;;
+    return (slider_touched?e_CapSense_Button_Pressed:e_CapSense_Button_Released);
 }

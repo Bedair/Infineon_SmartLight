@@ -104,10 +104,11 @@ CapSense_Button_State IoHwAbs_CapSense_Get_Button1_State(void);
 
 /*
 * Funcation Name : IoHwAbs_CapSense_Get_Slider_State
-* Description    : Used to retuen the Silder value
-* Parameters     : NA
+* Description    : Used to retuen the if the Slider is presssed 
+*                  and position of the slider
+* Parameters     : Pointer to the touched slider position (0 : 100)
 * Return         : Current Slider value
 */
-uint8_t IoHwAbs_CapSense_Get_Slider_State(void);
+CapSense_Button_State IoHwAbs_CapSense_Get_Slider_State(uint8_t *pos);
 
 #endif
