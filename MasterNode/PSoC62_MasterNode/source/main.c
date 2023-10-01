@@ -52,6 +52,7 @@
 #include "queue.h"
 #include "cyhal_gpio.h"
 #include "cy_syslib.h"
+#include "App_Tasks.h"
 
 /*******************************************************************************
  * Global constants
@@ -59,15 +60,12 @@
 /* Priorities of user tasks in this project. configMAX_PRIORITIES is defined in
  * the FreeRTOSConfig.h and higher priority numbers denote high priority tasks.
  */
-#define TASK_CAPSENSE_PRIORITY (configMAX_PRIORITIES - 1)
-#define TASK_LED_PRIORITY (configMAX_PRIORITIES - 2)
+#define HIGH_PRIO_TASK_PRIORITY (configMAX_PRIORITIES - 1)
+#define LOW_PRIO_TASK_PRIORITY  (configMAX_PRIORITIES - 2)
 
 /* Stack sizes of user tasks in this project */
-#define TASK_CAPSENSE_STACK_SIZE (256u)
-#define TASK_LED_STACK_SIZE (configMINIMAL_STACK_SIZE)
-
-/* Queue lengths of message queues used in this project */
-#define SINGLE_ELEMENT_QUEUE (1u)
+#define HIGH_PRIO_TASK_STACK_SIZE   (256u)
+#define LOW_PRIO_TASK_STACK_SIZE    (256u)
 
 
 /*******************************************************************************
@@ -98,11 +96,24 @@ int main(void)
     __enable_irq();
 
 
+    /* Create the user tasks. See the respective task definition for more
+     * details of these tasks.
+     */
+    xTaskCreate(High_Prio_Task, "High Prio Task", HIGH_PRIO_TASK_STACK_SIZE,
+                NULL, HIGH_PRIO_TASK_PRIORITY, NULL);
+    xTaskCreate(Low_Prio_Task, "Low Prio Task", LOW_PRIO_TASK_STACK_SIZE,
+                NULL, LOW_PRIO_TASK_PRIORITY, NULL);
+
+    /* Start the RTOS scheduler. This function should never return */
+    vTaskStartScheduler();
+
+    /********************** Should never get here ***************************/
+    /* RTOS scheduler exited */
+    /* Halt the CPU if scheduler exits */
+    CY_ASSERT(0);
+
     for (;;)
     {
-    	cyhal_gpio_toggle(P0_5);
-    	CyDelay(500);
-
     }
 
 }
