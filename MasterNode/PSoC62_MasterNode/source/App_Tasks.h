@@ -1,8 +1,8 @@
 /**********************************************************************
 * File Name : App_Tasks.c
 * 
-* Description : source file for the component that contain implementation
-                for different OS tasks
+* Description : header file for the component that contain implementation
+*               for different OS tasks
 *
 * Author : Mohamed Bedair
 *

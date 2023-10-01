@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "cycfg_capsense.h": "c",
+        "cyhal.h": "c"
+    }
+}
