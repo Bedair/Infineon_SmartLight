@@ -1,6 +1,9 @@
 {
     "files.associations": {
         "cycfg_capsense.h": "c",
-        "cyhal.h": "c"
+        "cyhal.h": "c",
+        "cyhal_hw_types.h": "c",
+        "cyhal_adc.h": "c",
+        "iohwabs_mic.h": "c"
     }
 }

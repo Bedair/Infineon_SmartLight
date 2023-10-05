@@ -18,11 +18,13 @@
 #include "FreeRTOS.h"
 #include "task.h"
 
-#include "IoHwAbs_CapSense.h"
+
 #include "cybsp.h"
 #include "cyhal.h"
 #include "cycfg.h"
 
+#include "IoHwAbs_CapSense.h"
+#include "IoHwAbs_Mic.h"
 
 
 #define HIGH_PRIO_TASK_PERIODICITY  (5u)
@@ -102,20 +104,24 @@ void High_Prio_Task(void* param)
     }
 }
 
-
 void Low_Prio_Task(void* param)
 {
     TickType_t xLastWakeTime_Low_Prio;
 
-    (void)param;
-    
+    static volatile int16_t Mic_value;
 
+    (void)param;
+
+    IoHwAbs_Mic_Init();
+    
     // Initialise the xLastWakeTime variable with the current time.
     xLastWakeTime_Low_Prio = xTaskGetTickCount ();
     for (;;)
     {
         // Wait for the next cycle.
         (void)xTaskDelayUntil( &xLastWakeTime_Low_Prio, LOW_PRIO_TASK_PERIODICITY );
+
+        Mic_value = IoHwAbs_Mic_Get_Current_Value();
 
     }
 }
