@@ -4,6 +4,9 @@
         "cyhal.h": "c",
         "cyhal_hw_types.h": "c",
         "cyhal_adc.h": "c",
-        "iohwabs_mic.h": "c"
+        "iohwabs_mic.h": "c",
+        "cycfg_peripherals.h": "c",
+        "iohwabs_light.h": "c",
+        "iohwabs_capsense.h": "c"
     }
 }

@@ -37,6 +37,30 @@
         .channel_num = CYBSP_CSD_CLK_DIV_NUM,
     };
 #endif //defined (CY_USING_HAL)
+#if defined (CY_USING_HAL)
+    const cyhal_resource_inst_t peri_0_div_8_1_obj = 
+    {
+        .type = CYHAL_RSC_CLOCK,
+        .block_num = peri_0_div_8_1_HW,
+        .channel_num = peri_0_div_8_1_NUM,
+    };
+#endif //defined (CY_USING_HAL)
+#if defined (CY_USING_HAL)
+    const cyhal_resource_inst_t peri_0_div_8_2_obj = 
+    {
+        .type = CYHAL_RSC_CLOCK,
+        .block_num = peri_0_div_8_2_HW,
+        .channel_num = peri_0_div_8_2_NUM,
+    };
+#endif //defined (CY_USING_HAL)
+#if defined (CY_USING_HAL)
+    const cyhal_resource_inst_t peri_0_div_8_3_obj = 
+    {
+        .type = CYHAL_RSC_CLOCK,
+        .block_num = peri_0_div_8_3_HW,
+        .channel_num = peri_0_div_8_3_NUM,
+    };
+#endif //defined (CY_USING_HAL)
 
 
 void init_cycfg_clocks(void)
@@ -46,5 +70,26 @@ void init_cycfg_clocks(void)
     Cy_SysClk_PeriphEnableDivider(CY_SYSCLK_DIV_8_BIT, 0U);
 #if defined (CY_USING_HAL)
     cyhal_hwmgr_reserve(&CYBSP_CSD_CLK_DIV_obj);
+#endif //defined (CY_USING_HAL)
+
+    Cy_SysClk_PeriphDisableDivider(CY_SYSCLK_DIV_8_BIT, 1U);
+    Cy_SysClk_PeriphSetDivider(CY_SYSCLK_DIV_8_BIT, 1U, 108U);
+    Cy_SysClk_PeriphEnableDivider(CY_SYSCLK_DIV_8_BIT, 1U);
+#if defined (CY_USING_HAL)
+    cyhal_hwmgr_reserve(&peri_0_div_8_1_obj);
+#endif //defined (CY_USING_HAL)
+
+    Cy_SysClk_PeriphDisableDivider(CY_SYSCLK_DIV_8_BIT, 2U);
+    Cy_SysClk_PeriphSetDivider(CY_SYSCLK_DIV_8_BIT, 2U, 108U);
+    Cy_SysClk_PeriphEnableDivider(CY_SYSCLK_DIV_8_BIT, 2U);
+#if defined (CY_USING_HAL)
+    cyhal_hwmgr_reserve(&peri_0_div_8_2_obj);
+#endif //defined (CY_USING_HAL)
+
+    Cy_SysClk_PeriphDisableDivider(CY_SYSCLK_DIV_8_BIT, 3U);
+    Cy_SysClk_PeriphSetDivider(CY_SYSCLK_DIV_8_BIT, 3U, 108U);
+    Cy_SysClk_PeriphEnableDivider(CY_SYSCLK_DIV_8_BIT, 3U);
+#if defined (CY_USING_HAL)
+    cyhal_hwmgr_reserve(&peri_0_div_8_3_obj);
 #endif //defined (CY_USING_HAL)
 }

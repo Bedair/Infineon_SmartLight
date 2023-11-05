@@ -77,6 +77,54 @@ const cy_stc_gpio_pin_config_t CYBSP_WCO_OUT_config =
         .channel_num = CYBSP_WCO_OUT_PIN,
     };
 #endif //defined (CY_USING_HAL)
+const cy_stc_gpio_pin_config_t ioss_0_port_0_pin_2_config = 
+{
+    .outVal = 1,
+    .driveMode = CY_GPIO_DM_HIGHZ,
+    .hsiom = ioss_0_port_0_pin_2_HSIOM,
+    .intEdge = CY_GPIO_INTR_DISABLE,
+    .intMask = 0UL,
+    .vtrip = CY_GPIO_VTRIP_CMOS,
+    .slewRate = CY_GPIO_SLEW_FAST,
+    .driveSel = CY_GPIO_DRIVE_1_2,
+    .vregEn = 0UL,
+    .ibufMode = 0UL,
+    .vtripSel = 0UL,
+    .vrefSel = 0UL,
+    .vohSel = 0UL,
+};
+#if defined (CY_USING_HAL)
+    const cyhal_resource_inst_t ioss_0_port_0_pin_2_obj = 
+    {
+        .type = CYHAL_RSC_GPIO,
+        .block_num = ioss_0_port_0_pin_2_PORT_NUM,
+        .channel_num = ioss_0_port_0_pin_2_PIN,
+    };
+#endif //defined (CY_USING_HAL)
+const cy_stc_gpio_pin_config_t ioss_0_port_0_pin_3_config = 
+{
+    .outVal = 1,
+    .driveMode = CY_GPIO_DM_STRONG_IN_OFF,
+    .hsiom = ioss_0_port_0_pin_3_HSIOM,
+    .intEdge = CY_GPIO_INTR_DISABLE,
+    .intMask = 0UL,
+    .vtrip = CY_GPIO_VTRIP_CMOS,
+    .slewRate = CY_GPIO_SLEW_FAST,
+    .driveSel = CY_GPIO_DRIVE_1_2,
+    .vregEn = 0UL,
+    .ibufMode = 0UL,
+    .vtripSel = 0UL,
+    .vrefSel = 0UL,
+    .vohSel = 0UL,
+};
+#if defined (CY_USING_HAL)
+    const cyhal_resource_inst_t ioss_0_port_0_pin_3_obj = 
+    {
+        .type = CYHAL_RSC_GPIO,
+        .block_num = ioss_0_port_0_pin_3_PORT_NUM,
+        .channel_num = ioss_0_port_0_pin_3_PIN,
+    };
+#endif //defined (CY_USING_HAL)
 const cy_stc_gpio_pin_config_t CYBSP_LED_RGB_GREEN_config = 
 {
     .outVal = 1,
@@ -449,6 +497,16 @@ void init_cycfg_pins(void)
     Cy_GPIO_Pin_Init(CYBSP_WCO_OUT_PORT, CYBSP_WCO_OUT_PIN, &CYBSP_WCO_OUT_config);
 #if defined (CY_USING_HAL)
     cyhal_hwmgr_reserve(&CYBSP_WCO_OUT_obj);
+#endif //defined (CY_USING_HAL)
+
+    Cy_GPIO_Pin_Init(ioss_0_port_0_pin_2_PORT, ioss_0_port_0_pin_2_PIN, &ioss_0_port_0_pin_2_config);
+#if defined (CY_USING_HAL)
+    cyhal_hwmgr_reserve(&ioss_0_port_0_pin_2_obj);
+#endif //defined (CY_USING_HAL)
+
+    Cy_GPIO_Pin_Init(ioss_0_port_0_pin_3_PORT, ioss_0_port_0_pin_3_PIN, &ioss_0_port_0_pin_3_config);
+#if defined (CY_USING_HAL)
+    cyhal_hwmgr_reserve(&ioss_0_port_0_pin_3_obj);
 #endif //defined (CY_USING_HAL)
 
     Cy_GPIO_Pin_Init(CYBSP_LED_RGB_GREEN_PORT, CYBSP_LED_RGB_GREEN_PIN, &CYBSP_LED_RGB_GREEN_config);

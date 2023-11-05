@@ -33,6 +33,10 @@
 #include "cycfg_notices.h"
 #include "cy_sysclk.h"
 #include "cy_csd.h"
+#include "cy_scb_uart.h"
+#if defined (CY_USING_HAL)
+    #include "cyhal_hwmgr.h"
+#endif //defined (CY_USING_HAL)
 
 #if defined(__cplusplus)
 extern "C" {
@@ -74,8 +78,15 @@ extern "C" {
 #define CintB_PORT_NUM 7u
 #define CYBSP_CSD_HW CSD0
 #define CYBSP_CSD_IRQ csd_interrupt_IRQn
+#define scb_0_ENABLED 1U
+#define scb_0_HW SCB0
+#define scb_0_IRQ scb_0_interrupt_IRQn
 
 extern cy_stc_csd_context_t cy_csd_0_context;
+extern const cy_stc_scb_uart_config_t scb_0_config;
+#if defined (CY_USING_HAL)
+    extern const cyhal_resource_inst_t scb_0_obj;
+#endif //defined (CY_USING_HAL)
 
 void init_cycfg_peripherals(void);
 

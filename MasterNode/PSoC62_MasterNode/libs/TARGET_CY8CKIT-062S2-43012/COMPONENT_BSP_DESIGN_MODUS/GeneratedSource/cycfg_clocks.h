@@ -46,10 +46,28 @@ extern "C" {
 #define CYBSP_CS_CLK_DIV_HW CYBSP_CSD_CLK_DIV_HW
 #define CYBSP_CSD_CLK_DIV_NUM 0U
 #define CYBSP_CS_CLK_DIV_NUM CYBSP_CSD_CLK_DIV_NUM
+#define peri_0_div_8_1_ENABLED 1U
+#define peri_0_div_8_1_HW CY_SYSCLK_DIV_8_BIT
+#define peri_0_div_8_1_NUM 1U
+#define peri_0_div_8_2_ENABLED 1U
+#define peri_0_div_8_2_HW CY_SYSCLK_DIV_8_BIT
+#define peri_0_div_8_2_NUM 2U
+#define peri_0_div_8_3_ENABLED 1U
+#define peri_0_div_8_3_HW CY_SYSCLK_DIV_8_BIT
+#define peri_0_div_8_3_NUM 3U
 
 #if defined (CY_USING_HAL)
     extern const cyhal_resource_inst_t CYBSP_CSD_CLK_DIV_obj;
     #define CYBSP_CS_CLK_DIV_obj CYBSP_CSD_CLK_DIV_obj
+#endif //defined (CY_USING_HAL)
+#if defined (CY_USING_HAL)
+    extern const cyhal_resource_inst_t peri_0_div_8_1_obj;
+#endif //defined (CY_USING_HAL)
+#if defined (CY_USING_HAL)
+    extern const cyhal_resource_inst_t peri_0_div_8_2_obj;
+#endif //defined (CY_USING_HAL)
+#if defined (CY_USING_HAL)
+    extern const cyhal_resource_inst_t peri_0_div_8_3_obj;
 #endif //defined (CY_USING_HAL)
 
 void init_cycfg_clocks(void);

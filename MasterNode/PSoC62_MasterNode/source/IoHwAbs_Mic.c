@@ -18,7 +18,8 @@
 #include "cyhal_adc.h"
 
 
-#define MIC_ADC_PIN             (P10_6)
+#define MIC_ADC_PIN                 (P10_6)
+#define PERSON_PRESENCE_THRESHOLD   (2400)
 
 
 
@@ -106,4 +107,27 @@ void IoHwAbs_Mic_Init(void)
 int16_t IoHwAbs_Mic_Get_Current_Value(void)
 {
     return (cyhal_adc_read_u16(&adc_chan_0_obj) >> 4);
+}
+
+
+/*
+* Funcation Name : IoHwAbs_Mic_Person_Presence
+* Description    : Used to check if there is a person in the room based on the Mic level
+* Parameters     : NA
+* Return         : True if the Mic detect a nosie in the room
+*/
+uint8_t IoHwAbs_Mic_Person_Presence(void)
+{
+    uint8_t retunValue = false;
+    volatile int16_t Mic_value;
+
+    Mic_value = IoHwAbs_Mic_Get_Current_Value();
+
+    if (Mic_value >= PERSON_PRESENCE_THRESHOLD)
+    {
+        retunValue = true;
+    }
+
+    return retunValue;
+
 }

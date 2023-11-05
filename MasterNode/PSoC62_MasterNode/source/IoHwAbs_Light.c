@@ -24,8 +24,8 @@
 
 #define LIGHT_PIN           (CYBSP_USER_LED)
 #define PWM_FREQUENCY       (1000000u)
-#define FULL_BRIGHTNESS     (100)
-#define ZERO_BRIGHTNESS     (0)
+#define FULL_DUTYCYCLE     (100)
+#define ZERO_DUTYCYCLE     (0)
 
 /**********************************************************************
 *                          Global Variables                           *
@@ -52,7 +52,7 @@ void IoHwAbs_Light_Init(void)
 {
     /* Initialize a PWM resource for driving an LED. */
     cyhal_pwm_init(&pwm_led, LIGHT_PIN, NULL);
-    cyhal_pwm_set_duty_cycle(&pwm_led, ZERO_BRIGHTNESS,PWM_FREQUENCY);
+    cyhal_pwm_set_duty_cycle(&pwm_led, ZERO_DUTYCYCLE,PWM_FREQUENCY);
     cyhal_pwm_start(&pwm_led);
 }   
 
@@ -65,7 +65,7 @@ void IoHwAbs_Light_Init(void)
 */
 void IoHwAbs_Light_On(void)
 {
-    cyhal_pwm_set_duty_cycle(&pwm_led, FULL_BRIGHTNESS, PWM_FREQUENCY);
+    cyhal_pwm_set_duty_cycle(&pwm_led, ZERO_DUTYCYCLE, PWM_FREQUENCY);
 }
 
 
@@ -77,7 +77,7 @@ void IoHwAbs_Light_On(void)
 */
 void IoHwAbs_Light_Off(void)
 {
-    cyhal_pwm_set_duty_cycle(&pwm_led, ZERO_BRIGHTNESS, PWM_FREQUENCY);
+    cyhal_pwm_set_duty_cycle(&pwm_led, FULL_DUTYCYCLE, PWM_FREQUENCY);
 }
 
 

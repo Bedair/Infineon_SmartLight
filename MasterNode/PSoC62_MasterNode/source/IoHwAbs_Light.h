@@ -17,6 +17,11 @@
 #include <stdint.h>
 
 
+typedef enum {
+    LIGHT_ON,
+    LIGHT_OFF
+}Light_State_T;
+
 /*
 * Funcation Name : IoHwAbs_Light_Init
 * Description    : Used to initialize light module

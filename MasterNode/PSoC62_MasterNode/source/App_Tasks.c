@@ -25,6 +25,8 @@
 #include "IoHwAbs_Mic.h"
 
 
+
+
 #define HIGH_PRIO_TASK_PERIODICITY  (5u)
 #define LOW_PRIO_TASK_PERIODICITY   (10u)
 
@@ -36,7 +38,7 @@
 /**********************************************************************
 *                          Global Variables                           *
 **********************************************************************/
-
+Light_State_T LightState = LIGHT_OFF;
 
 
 /**********************************************************************
@@ -61,7 +63,12 @@ void High_Prio_Task(void* param)
     IoHwAbs_CapSense_Tuner_Init();
     IoHwAbs_CapSense_Init();
 
+    IoHwAbs_Mic_Init();
+    IoHwAbs_Communication_Init();
 
+
+    IoHwAbs_Light_Off();
+    LightState = LIGHT_OFF;
     
 
     // Initialise the xLastWakeTime variable with the current time.
@@ -82,17 +89,22 @@ void High_Prio_Task(void* param)
         if (IoHwAbs_CapSense_Get_Button0_State())
         {
             IoHwAbs_Light_Off();
+            LightState = LIGHT_OFF;
         }
-        else if (IoHwAbs_CapSense_Get_Button1_State())
+        else if (IoHwAbs_CapSense_Get_Button1_State() ||
+                 IoHwAbs_Communication_Valid_Access() ||
+                 IoHwAbs_Mic_Person_Presence()
+        )
         {
             IoHwAbs_Light_On();
+            LightState = LIGHT_ON;
         }
         else
         {
 
         }
 
-        if (IoHwAbs_CapSense_Get_Slider_State(&brightness))
+        if (IoHwAbs_CapSense_Get_Slider_State(&brightness) && (LightState == LIGHT_ON))
         {
             IoHwAbs_Light_Set_Brightness(brightness);
         }
@@ -102,15 +114,16 @@ void High_Prio_Task(void* param)
     }
 }
 
+
+
+
+
 void Low_Prio_Task(void* param)
 {
     TickType_t xLastWakeTime_Low_Prio;
 
-    static volatile int16_t Mic_value;
-
     (void)param;
 
-    IoHwAbs_Mic_Init();
     
     // Initialise the xLastWakeTime variable with the current time.
     xLastWakeTime_Low_Prio = xTaskGetTickCount ();
@@ -119,7 +132,6 @@ void Low_Prio_Task(void* param)
         // Wait for the next cycle.
         (void)xTaskDelayUntil( &xLastWakeTime_Low_Prio, LOW_PRIO_TASK_PERIODICITY );
 
-        Mic_value = IoHwAbs_Mic_Get_Current_Value();
 
     }
 }

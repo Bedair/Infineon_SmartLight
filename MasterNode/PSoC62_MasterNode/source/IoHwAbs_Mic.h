@@ -34,4 +34,13 @@ void IoHwAbs_Mic_Init(void);
 int16_t IoHwAbs_Mic_Get_Current_Value(void);
 
 
+/*
+* Funcation Name : IoHwAbs_Mic_Person_Presence
+* Description    : Used to check if there is a person in the room based on the Mic level
+* Parameters     : NA
+* Return         : True if the Mic detect a nosie in the room
+*/
+uint8_t IoHwAbs_Mic_Person_Presence(void);
+
+
 #endif
